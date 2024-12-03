@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Click Downloader - Settings</title>
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #020817;
+            --muted: #f1f5f9;
+            --muted-foreground: #64748b;
+            --primary: #0ea5e9;
+            --primary-foreground: #ffffff;
+            --border: #e2e8f0;
+            --radius: 0.5rem;
+        }
+
+        [data-theme="dark"] {
+            --background: #020817;
+            --foreground: #ffffff;
+            --muted: #1e293b;
+            --muted-foreground: #94a3b8;
+            --border: #1e293b;
+            --primary: #0ea5e9;
+            --primary-foreground: #ffffff;
+        }
+
+        body {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card {
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--background);
+            margin-bottom: 24px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .card-header {
+            padding: 16px 16px 0;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--foreground);
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 16px;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 8px;
+        }
+
+        .space-x-2 > * + * {
+            margin-left: 8px;
+        }
+
+        .switch {
+            position: relative;
+            width: 42px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--muted);
+            transition: .2s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .2s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(18px);
+        }
+
+        .label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--foreground);
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+        }
+
+        .text-muted {
+            color: var(--muted-foreground);
+        }
+
+        .button {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .button-outline {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--foreground);
+        }
+
+        .button:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            font-size: 0.875rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+
+        .input:focus {
+            border-color: var(--primary);
+        }
+
+        .input::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .separator {
+            height: 1px;
+            background: var(--border);
+            margin: 16px 0;
+        }
+
+        .save-message {
+            text-align: center;
+            color: #22c55e;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--foreground);
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">Image Click Downloader Settings</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Download Settings</h2>
+        </div>
+        <div class="card-content space-y-4">
+            <div class="space-y-2">
+                <label class="label">Download Location</label>
+                <div class="flex space-x-2">
+                    <input type="text" id="defaultPath" class="input" placeholder="Enter path or click Browse">
+                    <button id="browsePath" class="button button-outline">Browse</button>
+                </div>
+                <button id="setPath" class="button button-primary">Set Path</button>
+                <div class="text-sm text-muted">
+                    Current location: <span id="currentPath">Default</span>
+                </div>
+                <div class="text-xs text-muted">
+                    Example: downloads/images or images/screenshots
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="label">File Name Pattern</label>
+                    <label class="switch">
+                        <input type="checkbox" id="togglePattern" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <input type="text" id="fileNamePattern" class="input" placeholder="e.g., image_{date}_{index}">
+                <div class="text-xs text-muted">
+                    Variables: {date}, {index}, {original}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Click Mode</h2>
+        </div>
+        <div class="card-content">
+            <div class="flex space-x-2">
+                <button id="singleClickMode" class="button button-outline">One Click</button>
+                <button id="doubleClickMode" class="button button-outline">Double Click</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Theme Settings</h2>
+        </div>
+        <div class="card-content">
+            <div class="flex items-center justify-between">
+                <label class="label">Dark Mode</label>
+                <label class="switch">
+                    <input type="checkbox" id="toggleTheme">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <button id="saveSettings" class="button button-primary" style="width: 100%">
+        Save Settings
+    </button>
+    <div id="saveMessage" class="save-message">Settings saved successfully!</div>
+
+    <script src="options.js"></script>
+</body>
+</html> 
