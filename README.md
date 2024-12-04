@@ -1,6 +1,6 @@
 # One Click Image Downloader
 
-A Chrome extension that allows users to download images with a single click or double click in any website.
+A Chrome extension that allows users to download images with a single click or double click in any website.This extension simplifies the image downloading process by eliminating the traditional right-click workflow. Users can download images directly with a single click or double click, depending on their preference. The extension is highly customizable, allowing users to set their preferred download paths, file naming patterns, and interaction modes. This extension works on almost most of the websites.
 
 ![Screenshot 2024-12-03 224035](https://github.com/user-attachments/assets/47505f96-4d1f-4def-a604-91dacb73ca78)
 
